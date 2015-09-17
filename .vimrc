@@ -127,6 +127,7 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'dag/vim2hs'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
+Plugin 'lukerandall/haskellmode-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -149,3 +150,17 @@ let g:syntastic_c_checkers = ["gcc"]
 
 " Vim-airline
 set laststatus=2
+
+" haskellmode-vim
+" use ghc functionality for haskell files
+au Bufenter *.hs compiler ghc
+" switch on syntax highlighting
+syntax on
+" enable filetype detection, plus loading of filetype plugins
+filetype plugin on
+" configure browser for haskell_doc.vim
+let g:haddock_browser = "insert path to your web browser"
+
+set tags+=tags;/
+
+hi Folded ctermbg=Cyan
