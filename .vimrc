@@ -1,7 +1,9 @@
-" An example for a vimrc file.
+" A vim configuration file
 "
 " Maintainer:	Bram Moolenaar <Bram@vim.org>
 " Last change:	2008 Dec 17
+"
+" Modified:     Hongli Yin <hongliy@andrew.cmu.edu>
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
@@ -150,4 +152,4 @@ let g:syntastic_c_checkers = ["gcc"]
 
 " Powerline
 " source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
-" set laststatus=2
+set laststatus=2
