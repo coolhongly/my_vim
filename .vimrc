@@ -99,7 +99,6 @@ endif
 
 " Customization
 set number
-"set foldcolumn=2
 
 set tabstop=8
 set expandtab
@@ -111,12 +110,22 @@ set tw=80
 set colorcolumn=81
 set formatoptions+=t
 
+" Fold
+"set foldcolumn=2
 set tags+=tags;/
-hi Folded ctermbg=Cyan
+hi Folded ctermbg=Black
+set foldlevel=1
+set foldmethod=manual
+au BufWinLeave * mkview
+au BufWinEnter * silent loadview
+
+"match ErrorMsg '\s\+$'
 
 " Haskell
 set nocompatible              " be iMproved, required
 filetype off                  " required
+au BufNewFile,BufRead *.x set filetype=haskell
+au BufNewFile,BufRead *.y set filetype=haskell
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
