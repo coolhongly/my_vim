@@ -1,9 +1,7 @@
-" A vim configuration file
+" An example for a vimrc file.
 "
 " Maintainer:	Bram Moolenaar <Bram@vim.org>
 " Last change:	2008 Dec 17
-"
-" Modified:     Hongli Yin <hongliy@andrew.cmu.edu>
 "
 " To use it, copy it to
 "     for Unix and OS/2:  ~/.vimrc
@@ -100,14 +98,23 @@ endif
 " Customization
 set number
 
-set tabstop=8
+"set tabstop=8
+"set expandtab
+"set softtabstop=4
+"set shiftwidth=4
+"set shiftround
+
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=2
+" when indenting with '>', use 4 spaces width
+set shiftwidth=2
+" On pressing tab, insert 4 spaces
 set expandtab
-set softtabstop=4
-set shiftwidth=4
-set shiftround
 
 set tw=80
 set colorcolumn=81
+highlight ColorColumn ctermbg=7
 set formatoptions+=t
 
 " Fold
@@ -116,10 +123,13 @@ set tags+=tags;/
 hi Folded ctermbg=Black
 set foldlevel=1
 set foldmethod=manual
-au BufWinLeave * mkview
-au BufWinEnter * silent loadview
+"au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
 
 "match ErrorMsg '\s\+$'
+
+" C
+au BufNewFile,BufRead *.s set syntax=asm
 
 " Haskell
 set nocompatible              " be iMproved, required
@@ -139,6 +149,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Haskell
 Plugin 'dag/vim2hs'
 Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -162,3 +173,16 @@ let g:syntastic_c_checkers = ["gcc"]
 " Powerline
 " source /usr/local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
 set laststatus=2
+set statusline=
+set statusline+=%<\                       " cut at start
+set statusline+=%2*[%n%H%M%R%W]%*\        " flags and buf no
+set statusline+=%-40f\                    " path
+set statusline+=%=%1*%y%*%*\              " file type
+set statusline+=%10((%l,%c)%)\            " line and column
+set statusline+=%P                        " percentage of file
+
+" YCM
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 0
+set completeopt=menu,menuone
+"let g:loaded_youcompleteme = 1
