@@ -1,0 +1,57 @@
+" Basics
+set history=50		" keep 50 lines of command line history
+set ruler		" show the cursor position all the time
+set number
+syntax on
+
+" Indentation
+filetype plugin indent on
+autocmd FileType c,cpp set softtabstop=8 shiftwidth=8 expandtab
+autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab
+
+" Width
+set tw=100
+set colorcolumn=101
+highlight ColorColumn ctermbg=7
+set formatoptions+=t
+
+" Fold
+set tags+=tags;/
+hi Folded ctermbg=Black
+set foldlevel=1
+set foldmethod=manual
+"set foldcolumn=2
+"au BufWinLeave * mkview
+"au BufWinEnter * silent loadview
+
+" Status line
+set laststatus=2
+set statusline=
+set statusline+=%<\                       " cut at start
+set statusline+=%2*[%n%H%M%R%W]%*\        " flags and buf no
+set statusline+=%-40f\                    " path
+set statusline+=%=%1*%y%*%*\              " file type
+set statusline+=%10((%l,%c)%)\            " line and column
+set statusline+=%P                        " percentage of file
+
+" Vundle begin
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()            " required
+" Vundle end
+
+" Syntastic
+let g:syntastic_haskell_ghc_mod_exec = 'ghc-mod.sh'
+let g:syntastic_c_checkers = ["gcc"]
+autocmd VimEnter * SyntasticToggleMode " disable syntastic by default
+
+" YCM
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 0
+set completeopt=menu,menuone
+"let g:loaded_youcompleteme = 1
