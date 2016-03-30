@@ -1,0 +1,38 @@
+# User specific aliases and functions
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	alias ls='ls --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+fi
+
+# Navigation
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+
+# Git
+alias cdiff='/usr/bin/colordiff -s -w 0'
+function gd {
+	git diff "$@" | cdiff
+}
+function gs {
+	git show "$@" | cdiff
+}
+alias gb='git branch | grep -E "|\*.*"'
+alias gba='git branch -a | grep -E "|\*.*"'
+alias gbl='git blame'
+alias gc='git checkout'
+alias gca='git commit -a'
+alias gcp='git cherry-pick -x'
+alias gl='git log --pretty=fuller'
+alias glme='git log --pretty=fuller --author="<hongli.yin@purestorage.com>"'
+alias gpr='git pull --rebase'
+alias gri='git rebase -i'
