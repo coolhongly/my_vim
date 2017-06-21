@@ -1,32 +1,25 @@
-" Basics
-set history=50		" keep 50 lines of command line history
-set ruler		" show the cursor position all the time
+execute pathogen#infect()
+
+"---------------------------------------------------------------------------
+"----- basic config --------------------------------------------------------
+"---------------------------------------------------------------------------
+
+" basic
 set number
 set hlsearch
+set cursorline
+" code folding
+set foldmethod=indent
+set foldlevel=99
+" syntax highlighting
 syntax on
-set viminfo='20,<1000
-cs add $CSCOPE_DB
-
-" Indentation
 filetype plugin indent on
-autocmd FileType c,cpp set softtabstop=8 shiftwidth=8 expandtab
-autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab
-
-" Width
-set tw=100
-set colorcolumn=101
-highlight ColorColumn ctermbg=7
-set formatoptions+=t
-
-" Fold
-set tags+=tags;/
-hi Folded ctermbg=Black
-set foldlevel=1
-set foldmethod=manual
-"set foldcolumn=2
-"au BufWinLeave * mkview
-"au BufWinEnter * silent loadview
-
+autocmd FileType c,cpp,python,java,sh set softtabstop=4 shiftwidth=4 expandtab
+" window splits
+map <c-j> <c-w>J
+map <c-k> <c-w>K
+map <c-l> <c-w>L
+map <c-h> <c-w>H
 " Status line
 set laststatus=2
 set statusline=
@@ -36,25 +29,50 @@ set statusline+=%-40f\                    " path
 set statusline+=%=%1*%y%*%*\              " file type
 set statusline+=%10((%l,%c)%)\            " line and column
 set statusline+=%P                        " percentage of file
-
-" Remember last position
+set statusline+=%{fugitive#statusline()}
+" auto wrap
+set tw=100
+set colorcolumn=101
+highlight ColorColumn ctermbg=7
+set formatoptions+=t
+" remember last position
 if has("autocmd")
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" Vundle begin
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
-call vundle#end()            " required
-" Vundle end
+"---------------------------------------------------------------------------
+"----- modules -------------------------------------------------------------
+"---------------------------------------------------------------------------
 
-" YouCompleteMe
+" command-t
+" <leader>t fuzzy text matching to find any file in project
+
+" tasklist
+map <leader>d <Plug>TaskList
+
+" gundo
+map <leader>g :GundoToggle<CR>
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_python_pylint_args = '-E'
+
+" nerdtree
+map <leader>n :NERDTreeToggle<CR>
+
+" ack, ag
+nmap <leader>a <Esc>:Ack!
+let g:ackprg = 'ag --nogroup --nocolor --column' " use ag as backend
+
+" youcompleteme
 let g:ycm_confirm_extra_conf = 0
-" Code navigation with Ctrl-] , use Ctrl-O to get back to previous location
-nnoremap <silent> <C-]> :YcmCompleter GoTo<CR>
-
-" Hight white space
-"highlight ExtraWhitespace ctermbg=red guibg=red
-"match ExtraWhitespace /\s\+$/
+let g:ycm_global_ycm_extra_conf= '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+map <c-]> :YcmCompleter GoTo<CR>
+map <c-\> :YcmCompleter GoToReferences<CR>
