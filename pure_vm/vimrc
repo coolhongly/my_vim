@@ -14,7 +14,7 @@ set foldlevel=99
 " syntax highlighting
 syntax on
 filetype plugin indent on
-autocmd FileType c,cpp,python,java,sh set softtabstop=4 shiftwidth=4 expandtab
+set softtabstop=4 shiftwidth=4 expandtab
 " window splits
 map <c-j> <c-w>J
 map <c-k> <c-w>K
@@ -68,11 +68,13 @@ let g:syntastic_python_pylint_args = '-E'
 map <leader>n :NERDTreeToggle<CR>
 
 " ack, ag
-nmap <leader>a <Esc>:Ack!
+"nmap <leader>a <Esc>:Ack!
+nmap <c-\> <Esc>:Ack!<CR>
 let g:ackprg = 'ag --nogroup --nocolor --column' " use ag as backend
+set shellpipe=>
 
 " youcompleteme
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf= '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 map <c-]> :YcmCompleter GoTo<CR>
-map <c-\> :YcmCompleter GoToReferences<CR>
+"map <c-\> :YcmCompleter GoToReferences<CR>
